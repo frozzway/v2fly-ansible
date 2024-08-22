@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  shadowsocks:
+    container_name: shadowsocks
+    image: teddysun/shadowsocks-rust
+    network_mode: host
+    restart: always
+    volumes:
+      - ~/configs/shadowsocks/config.json:/etc/shadowsocks-rust/config.json/:rw
+    command: "/usr/bin/ssservice server --log-without-time -c /etc/shadowsocks-rust/config.json"
+
+
+  v2fly:
+    image: v2fly/v2fly-core
+    container_name: v2fly
+    restart: unless-stopped
+    volumes:
+      - ~/configs/v2fly/config.json:/etc/v2ray/config.json
+      - ~/letsencrypt/live:/etc/letsencrypt/live
+      - ~/letsencrypt/archive:/etc/letsencrypt/archive
+    ports:
+      - "{{ v2fly_port_trojan_tcp }}:{{ v2fly_port_trojan_tcp }}"
+      - "{{ v2fly_port_trojan_ws }}:{{ v2fly_port_trojan_ws }}"
+      - "{{ v2fly_port_vmess_tcp }}:{{ v2fly_port_vmess_tcp }}"
+      - "{{ v2fly_port_vmess_ws }}:{{ v2fly_port_vmess_ws }}"
+    command: ["run", "-c", "/etc/v2ray/config.json", "-format", "jsonv5"]

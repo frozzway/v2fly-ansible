@@ -1,0 +1,23 @@
+domain: v2fly-is-amazing.com
+
+shadowsocks_proxy_password: Wt0Gtk3fyIjPImGkL_OCORZTP3xlhNR7bhGuyzV8
+shadowsocks_encryption_method: chacha20-ietf-poly1305
+
+# Ports should be different otherwise clients won't be able to connect
+shadowsocks_service_port: 55960
+v2fly_port_trojan_ws: 55999
+v2fly_port_trojan_tcp: 55998
+v2fly_port_vmess_ws: 55997
+v2fly_port_vmess_tcp: 55996
+
+# These are the V2fly passwords used by each client to authorize
+
+users: [
+  "f6e5d4e5-290c-4e68-aa62-0bd6150b7812",
+  "10629faf-b905-4c51-a169-cb8cdc26f78c",
+  "5a539101-6a7d-4d03-8821-1c8b4bd0422b",
+  "0d158f96-37d6-49b3-975a-ddb659d58c14",
+  "1843586d-f792-4115-af8b-648f601ddf9e",
+  "89b3e3d7-0a92-4e96-818b-bfeb7971bbc4",
+  "a6a0c16d-9d35-4d0f-8c58-3e54bd75fa5c"
+]

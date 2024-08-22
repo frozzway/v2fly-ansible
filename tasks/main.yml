@@ -1,0 +1,45 @@
+- name: Creating directory for v2fly/shadowsocks compose-file
+  ansible.builtin.file:
+    path: "~/configs/compose/v2fly_shadowsocks/"
+    state: directory
+    mode: '0755'
+
+
+- name: Creating directory for shadowsocks config file
+  ansible.builtin.file:
+    path: "~/configs/shadowsocks/"
+    state: directory
+    mode: '0755'
+
+
+- name: Creating directory for v2fly config file
+  ansible.builtin.file:
+    path: "~/configs/v2fly/"
+    state: directory
+    mode: '0755'
+
+
+- name: Setting docker-compose file
+  template:
+    src: "docker-compose.yml.j2"
+    dest: "~/configs/compose/v2fly_shadowsocks/docker-compose.yml"
+
+
+- name: Setting shadowsocks config.json file
+  template:
+    src: "shadowsocks-config.j2"
+    dest: "~/configs/shadowsocks/config.json"
+
+
+- name: Setting v2fly config.json file
+  template:
+    src: "v2fly-config.j2"
+    dest: "~/configs/v2fly/config.json"
+
+
+- name: Running services
+  command:
+    chdir: "~/configs/compose/v2fly_shadowsocks" 
+    cmd: "docker compose up --detach --force-recreate --build"
+  environment:
+    DOCKER_BUILDKIT: 1

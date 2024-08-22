@@ -1,0 +1,10 @@
+{
+    "server": "0.0.0.0",
+    "server_port": {{ shadowsocks_service_port }},
+    "password": "{{ shadowsocks_proxy_password }}",
+    "timeout": 300,
+    "method": "{{ shadowsocks_encryption_method }}",
+    "fast_open": true,
+    "nameserver": "1.1.1.1",
+    "mode": "tcp_only"
+}

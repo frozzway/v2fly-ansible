@@ -1,0 +1,94 @@
+{
+    "inbounds": [
+    	{
+    		"protocol": "vmess",
+    		"settings": {
+    			"users": {{ users | to_json }}
+    		},
+		  	"port":"{{ v2fly_port_vmess_ws }}",
+		  	"listen":"0.0.0.0",
+		  	"tag":"vmess-ws",
+		  	"streamSettings": {
+		  		"transport":"ws",
+			    "security":"tls",
+			    "securitySettings": {
+			    	"serverName": "vmess-ws.{{ domain }}",
+			    	"nextProtocol": [],
+			    	"certificate": [{
+						"keyFile": "/etc/letsencrypt/live/{{ domain }}/privkey.pem",
+						"certificateFile": "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+					}]
+			    }
+		  	}
+    	},
+    	{
+    		"protocol": "vmess",
+    		"settings": {
+    			"users": {{ users | to_json }}
+    		},
+		  	"port":"{{ v2fly_port_vmess_tcp }}",
+		  	"listen":"0.0.0.0",
+		  	"tag":"vmess-tcp",
+		  	"streamSettings": {
+		  		"transport":"tcp",
+			    "security":"tls",
+			    "securitySettings": {
+			    	"serverName": "vmess-tcp.{{ domain }}",
+			    	"nextProtocol": [],
+			    	"certificate": [{
+						"keyFile": "/etc/letsencrypt/live/{{ domain }}/privkey.pem",
+						"certificateFile": "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+					}]
+			    }
+		  	}
+    	},
+    	{
+    		"protocol": "trojan",
+    		"settings": {
+    			"users": {{ users | to_json }}
+    		},
+		  	"port":"{{ v2fly_port_trojan_tcp }}",
+		  	"listen":"0.0.0.0",
+		  	"tag":"trojan-tcp",
+		  	"streamSettings": {
+		  		"transport":"tcp",
+			    "security":"tls",
+			    "securitySettings": {
+			    	"serverName": "trojan-tcp.{{ domain }}",
+			    	"nextProtocol": [],
+			    	"certificate": [{
+						"keyFile": "/etc/letsencrypt/live/{{ domain }}/privkey.pem",
+						"certificateFile": "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+					}]
+			    }
+		  	}
+    	},
+    	{
+    		"protocol": "trojan",
+    		"settings": {
+    			"users": {{ users | to_json }}
+    		},
+		  	"port":"{{ v2fly_port_trojan_ws }}",
+		  	"listen":"0.0.0.0",
+		  	"tag":"trojan-ws",
+		  	"streamSettings": {
+		  		"transport":"ws",
+			    "security":"tls",
+			    "securitySettings": {
+			    	"serverName": "trojan-ws.{{ domain }}",
+			    	"nextProtocol": [],
+					"certificate": [{
+						"keyFile": "/etc/letsencrypt/live/{{ domain }}/privkey.pem",
+						"certificateFile": "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+					}]
+			    }
+		  	}
+    	}
+    ],
+    "outbounds": [
+    	{
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}
