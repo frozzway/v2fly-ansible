@@ -16,8 +16,7 @@ services:
     restart: unless-stopped
     volumes:
       - ~/configs/v2fly/config.json:/etc/v2ray/config.json
-      - ~/letsencrypt/live:/etc/letsencrypt/live
-      - ~/letsencrypt/archive:/etc/letsencrypt/archive
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "{{ v2fly_port_trojan_tcp }}:{{ v2fly_port_trojan_tcp }}"
       - "{{ v2fly_port_trojan_ws }}:{{ v2fly_port_trojan_ws }}"

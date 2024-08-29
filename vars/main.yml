@@ -11,7 +11,6 @@ v2fly_port_vmess_ws: 55997
 v2fly_port_vmess_tcp: 55996
 
 # These are the V2fly passwords used by each client to authorize
-
 users: [
   "f6e5d4e5-290c-4e68-aa62-0bd6150b7812",
   "10629faf-b905-4c51-a169-cb8cdc26f78c",
@@ -21,3 +20,6 @@ users: [
   "89b3e3d7-0a92-4e96-818b-bfeb7971bbc4",
   "a6a0c16d-9d35-4d0f-8c58-3e54bd75fa5c"
 ]
+
+# Email for certbot
+email: test@email.com

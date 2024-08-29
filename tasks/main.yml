@@ -1,19 +1,22 @@
+- name: Obtaining certificates using certbot and Let's Encrypt authority
+  import_tasks: certbot.yml
+
 - name: Creating directory for v2fly/shadowsocks compose-file
-  ansible.builtin.file:
+  file:
     path: "~/configs/compose/v2fly_shadowsocks/"
     state: directory
     mode: '0755'
 
 
 - name: Creating directory for shadowsocks config file
-  ansible.builtin.file:
+  file:
     path: "~/configs/shadowsocks/"
     state: directory
     mode: '0755'
 
 
 - name: Creating directory for v2fly config file
-  ansible.builtin.file:
+  file:
     path: "~/configs/v2fly/"
     state: directory
     mode: '0755'

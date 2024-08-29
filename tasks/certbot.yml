@@ -1,0 +1,46 @@
+- name: Stopping nginx container if running
+  shell: docker ps -q --filter "name=nginx" | grep -q . && docker stop nginx || true
+
+- name: Obtaining TLS certificates from authority using certbot
+  shell: >
+    docker run -it --rm --name certbot
+    -v "/etc/letsencrypt:/etc/letsencrypt"
+    -v "/var/lib/letsencrypt:/var/lib/letsencrypt"
+    -v "/var/log/letsencrypt:/var/log/letsencrypt"
+    -p 80:80
+    certbot/certbot certonly --standalone --non-interactive --agree-tos --email {{ email }} -d {{ item }}.{{ domain }}
+  loop:
+    - trojan-tcp
+    - trojan-ws
+    - vmess-tcp
+    - vmess-ws
+  loop_control:
+    label: Obtaining TLS certificate for {{ item }}.{{ domain }} using certbot
+
+- name: Starting nginx container if exists
+  shell: docker ps -a --filter "name=nginx" | grep -q . && docker start nginx || true
+
+- name: Create directory for scripts if not exsits
+  file:
+    path: "~/scripts/"
+    state: directory
+    mode: '0755'
+
+- name: Copy certbot_renew.sh script
+  copy:
+    src: certbot_renew.sh
+    dest: "~/scripts"
+    mode: '0755'
+
+- name: Ensure cron package is installed
+  apt:
+    name: cron
+
+- name: Add cron job for certbot renewal
+  cron:
+    name: Certbot renewal
+    minute: "0"
+    hour: "0"
+    day: "1"
+    month: "*/2"
+    job: "~/scripts/certbot_renew.sh"

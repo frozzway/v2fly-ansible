@@ -5,23 +5,22 @@
 
 ### Prerequirements
 
-In order to use TLS (secure and ecrypted) connection of V2Fly you should have a pair of X.509 public certificate key and correspoinding private key both encoded in `.PEM` format.
+In order to use TLS (secure and encrypted) connection of V2Fly you should have a pair of X.509 public certificate key and corresponding private key both encoded in `.PEM` format.
 
 You can use self-signed certificates that are put in trusted stores of all the devices which establish connection to your machine running V2Fly OR you can use domain-validated certificates issued by certificate authority such as Let's Encrypt or other.
 
-In any way you are to have both private key and x.509 (fullchain) files, pathes to which are specified in `certificate` sections of v2Fly configuration file.
+In any way you are to have both private key and x.509 (fullchain) files, paths to which are specified in `certificate` sections of v2Fly configuration file.
 
-Personally, I prefer to use domain-validated wildcard certificate obtained with the help of interactive [certbot](https://eff-certbot.readthedocs.io/en/latest/) utility. Therefore, the role is configured for that approach.
+Personally, I prefer to use domain-validated certificates obtained with the help of automatic [certbot](https://eff-certbot.readthedocs.io/en/latest/) utility. Therefore, the role is configured for that approach.
 
 ### Configuration
 
-1. Keep your generated key and issued wildcard certificate in a [default certbot directory](https://eff-certbot.readthedocs.io/en/latest/using.html#where-are-my-certificates).
-2. Make sure you have an A-type DNS record for your domain that points to your virtual machine's IP.
-3. Specify ports and passwords in `vars/main.yml` or leave it as they are. Remember to change `domain` to your domain name. Be cautious as V2Fly passwords MUST be in a form of [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You might use this [tool](https://www.uuidgenerator.net/version4) to generate yours:
+1. Get yourself a domain name and set its AAAA-type DNS record `*.your-domain.com` to point to your virtual machine's IP.
+3. Specify ports and passwords in `vars/main.yml` or leave them as they are. Remember to change `domain` to your domain name. `email` variable is only for the certbot. Be cautious as V2Fly passwords MUST be in a form of [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier). You might use this [tool](https://www.uuidgenerator.net/version4) to generate yours:
 	- It is up to you to set the number of clients (users) that will be able to connect.
 	- Do not use the same v2Fly password for two or more clients.
 	- Shadowsocks password is one for every client and SHOULD be as long as possible to avoid [brute-force](https://en.wikipedia.org/wiki/Brute-force_attack) attacks.
-4. Donwload client application:
+4. Download client application:
 	- [Nekoray](https://github.com/MatsuriDayo/nekoray) for Windows/Linux/MacOS.
 	- [v2rayNG](https://github.com/2dust/v2rayNG) for Android.
 	- [FoXray](https://apps.apple.com/us/app/foxray/id6448898396)  for iOS.
