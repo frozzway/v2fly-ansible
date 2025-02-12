@@ -20,7 +20,7 @@
 - name: Starting nginx container if exists
   shell: docker ps -a --filter "name=nginx" | grep -q . && docker start nginx || true
 
-- name: Create directory for scripts if not exsits
+- name: Create directory for scripts if not exists
   file:
     path: "~/scripts/"
     state: directory
